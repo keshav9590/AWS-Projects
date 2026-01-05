@@ -4,6 +4,7 @@
 
 This project demonstrates how to use AWS Config to continuously monitor the configuration of your AWS resources and ensure they comply with defined rules. AWS Config provides a detailed view of the configuration of AWS resources in your account and how they have changed over time. This example focuses on setting up a rule to ensure all S3 buckets have server-side encryption enabled.
 
+```mermaid
 graph TD
     %% Nodes and Styles
     User["User (Admin)"]
@@ -24,7 +25,7 @@ graph TD
         end
         
         subgraph Storage["Logs & History"]
-            S3History[("Config History Bucket<br/>(aws-config-history...)")]
+            S3History[("Config History Bucket")]
         end
     end
 
@@ -40,6 +41,7 @@ graph TD
     ConfigRecorder -->|5. Delivers History| S3History
     
     User -->|6. Views Compliance| Dashboard
+```
 
 ## Goal
 
