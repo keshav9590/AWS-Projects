@@ -7,6 +7,13 @@ This project demonstrates how to build an automated event notification system on
 ## Goal
 
 The goal of this project is to create an automated system that sends an email notification whenever a new object is uploaded to a designated Amazon S3 bucket.
+## Architecture
++--------+           +-------------+           +------------------+           +-------------+           +--------------+
+|        |           |             |           |                  |           |             |           |              |
+|  User  |---------->|  Amazon S3  |---------->|      Amazon      |---------->| Amazon SNS  |---------->|    Email     |
+|        |  Upload   |   Bucket    |  Event    |    EventBridge   |  Trigger  |    Topic    |  Notify   |  Subscriber  |
+|        |           |             |           |                  |           |             |           |              |
++--------+           +-------------+           +------------------+           +-------------+           +--------------+
 
 ## Prerequisites
 
