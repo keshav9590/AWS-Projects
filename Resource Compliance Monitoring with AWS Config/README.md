@@ -4,7 +4,42 @@
 
 This project demonstrates how to use AWS Config to continuously monitor the configuration of your AWS resources and ensure they comply with defined rules. AWS Config provides a detailed view of the configuration of AWS resources in your account and how they have changed over time. This example focuses on setting up a rule to ensure all S3 buckets have server-side encryption enabled.
 
-<img src="https://mermaid.ink/img/pako:eNptkMFOwzAMhl8l8rnTAidOQ9qLE2ycgG0uPHVru4lKkzhV2oS4O05aIGTiJP_32_4_2dAFa9EQeXfe1fAGvj48GDiM10-jsWJ1eQnO4-l0Msu8M_C2Bw1aeP_4aE7nc5bL4x2Yf8y-Q2_Qk_32q4L2p9Gj6y04g94ZfI9e-Qf4Q1s1o0HlqO2d86g1K2tQn0pLSt_fQx_L0qCaVq103qj2nFm1qYqCyrIqilxSnpV5LmlR5FlKyyLPhCRCUiYEEZzTjAme05zgjL6S_A-dJ0oITqkgIud0T_NfS6oFzQ?type=png" alt="Architecture Diagram" width="100%">
+graph TD
+    %% Nodes and Styles
+    User["User (Admin)"]
+    
+    subgraph AWS["AWS Cloud Region"]
+        style AWS fill:#f9f9f9,stroke:#232f3e,stroke-width:2px
+        
+        subgraph Config["AWS Config Service"]
+            style Config fill:#e1f3f8,stroke:#0073bb,stroke-width:2px
+            ConfigRecorder["Configuration Recorder"]
+            ConfigRule["Config Rule:<br/>s3-bucket-server-side-encryption-enabled"]
+            Dashboard["Compliance Dashboard"]
+        end
+        
+        subgraph Resources["Monitored Resources"]
+            style Resources fill:#fff,stroke:#d86613,stroke-dasharray: 5 5
+            S3Target[("Target S3 Buckets")]
+        end
+        
+        subgraph Storage["Logs & History"]
+            S3History[("Config History Bucket<br/>(aws-config-history...)")]
+        end
+    end
+
+    %% Relationships
+    User -->|1. Enable & Configure| ConfigRecorder
+    ConfigRecorder -->|2. continuously monitors| S3Target
+    S3Target -.->|State Changes| ConfigRecorder
+    
+    ConfigRecorder -->|3. Triggers evaluation| ConfigRule
+    ConfigRule -- Checks Encryption --> S3Target
+    
+    ConfigRule -->|4. Returns Compliance Status| Dashboard
+    ConfigRecorder -->|5. Delivers History| S3History
+    
+    User -->|6. Views Compliance| Dashboard
 
 ## Goal
 
