@@ -4,18 +4,7 @@
 
 This project demonstrates how to use AWS Config to continuously monitor the configuration of your AWS resources and ensure they comply with defined rules. AWS Config provides a detailed view of the configuration of AWS resources in your account and how they have changed over time. This example focuses on setting up a rule to ensure all S3 buckets have server-side encryption enabled.
 
-```mermaid
-graph LR
-    Resources[Target S3 Buckets] -- "1. Records Configuration" --> Config{AWS Config}
-    Config -- "2. Stores History" --> HistBucket[Config History S3 Bucket]
-    Config -- "3. Evaluates Rule" --> Rule[Managed Rule: Encryption Check]
-    Rule -- "4. Reports Status" --> Dash((Compliance Dashboard))
-
-    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;
-    classDef other fill:#fff,stroke:#333,stroke-width:2px;
-
-    class Config,HistBucket,Rule aws;
-    class Resources,Dash other;
+![Architecture Diagram](https://mermaid.ink/img/pako:eNptkMFOwzAMhl8l8rnTAidOQ9qLE2ycgG0uPHVru4lKkzhV2oS4O05aIGTiJP_32_4_2dAFa9EQeXfe1fAGvj48GDiM10-jsWJ1eQnO4-l0Msu8M_C2Bw1aeP_4aE7nc5bL4x2Yf8y-Q2_Qk_32q4L2p9Gj6y04g94ZfI9e-Qf4Q1s1o0HlqO2d86g1K2tQn0pLSt_fQx_L0qCaVq103qj2nFm1qYqCyrIqilxSnpV5LmlR5FlKyyLPhCRCUiYEEZzTjAme05zgjL6S_A-dJ0oITqkgIud0T_NfS6oFzQ?type=png)
 
 ## Goal
 
