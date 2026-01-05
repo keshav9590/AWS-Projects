@@ -4,16 +4,22 @@
 
 This project demonstrates how to build an automated event notification system on AWS using services like Amazon EventBridge and Amazon SNS. The system is designed to automatically send notifications (e.g., via email) in response to specific events occurring within your AWS environment. This example focuses on sending an email when a new object is created in an S3 bucket.
 
+```mermaid
+graph LR
+    User((User)) -- "1. Uploads Object" --> S3[Amazon S3 Bucket]
+    S3 -- "2. Emits Event: Object Created" --> EB{Amazon EventBridge}
+    EB -- "3. Matches Rule" --> SNS[Amazon SNS Topic]
+    SNS -- "4. Sends Email" --> Sub((Subscriber))
+    
+    classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;
+    classDef other fill:#fff,stroke:#333,stroke-width:2px;
+    
+    class S3,EB,SNS aws;
+    class User,Sub other;
+
 ## Goal
 
 The goal of this project is to create an automated system that sends an email notification whenever a new object is uploaded to a designated Amazon S3 bucket.
-## Architecture
-+--------+           +-------------+           +------------------+           +-------------+           +--------------+
-|        |           |             |           |                  |           |             |           |              |
-|  User  |---------->|  Amazon S3  |---------->|      Amazon      |---------->| Amazon SNS  |---------->|    Email     |
-|        |  Upload   |   Bucket    |  Event    |    EventBridge   |  Trigger  |    Topic    |  Notify   |  Subscriber  |
-|        |           |             |           |                  |           |             |           |              |
-+--------+           +-------------+           +------------------+           +-------------+           +--------------+
 
 ## Prerequisites
 
